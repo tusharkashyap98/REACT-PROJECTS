@@ -1,9 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import React from "react";
-import countriesData from "../countriesData";
+// import countriesData from "../countriesData";
 import CountryCard from "./CountryCard";
 
 export default function CountriesList({ query }) {
+  const [countriesData, setCountriesData] = useState([]);
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    fetch("https://restcountries.com/v3.1/all")
+      .then((res) => res.json())
+      .then((data) => {
+        setCountriesData(data);
+      });
+
+  }, []);
+
+
   return (
     <>
       <div className="countries-container">
