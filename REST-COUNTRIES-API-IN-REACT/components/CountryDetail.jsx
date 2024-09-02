@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 
 import './CountryDetail.css'
+import { useParams } from "react-router-dom";
 
 export default function CountryDetail() {
-  const countryName = new URLSearchParams(location.search).get("name");
+  const params  = useParams();
+  console.log(params);
+  const countryName = params.country;
+  const [notFound, setNotFound] = useState(false)
   const [countryData, setCountryData] = useState(null);
   console.log(countryData);
 
@@ -24,9 +28,14 @@ export default function CountryDetail() {
           language: Object.values(data.languages).join(", "),
           currencies: Object.values(data.currencies).map((currency)=> currency.name).join(', '),
         });
-      });
+      }).catch((err)=>{
+         setNotFound(true);
+      })
   }, []);
-
+    
+  if(notFound){
+    return <div>Country not Found</div>
+  }
   return (
     countryData === null? "loading..." :  ( <main>
       <div className="country-detailes-container">
