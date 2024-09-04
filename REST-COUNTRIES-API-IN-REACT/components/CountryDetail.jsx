@@ -8,7 +8,6 @@ export default function CountryDetail() {
   const countryName = params.country;
   const [notFound, setNotFound] = useState(false);
   const [countryData, setCountryData] = useState(null);
- 
 
   useEffect(() => {
     fetch(`https://restcountries.com/v3.1/name/${countryName}?fullText=true`)
@@ -27,22 +26,23 @@ export default function CountryDetail() {
           currencies: Object.values(data.currencies)
             .map((currency) => currency.name)
             .join(", "),
-            borders: []
+          borders: [],
         });
-        
-        if(!data.borders){
-          data.borders = []
-         }
-  
-          Promise.all( data.borders.map((border)=> {
+
+        if (!data.borders) {
+          data.borders = [];
+        }
+
+        Promise.all(
+          data.borders.map((border) => {
             return fetch(`https://restcountries.com/v3.1/alpha/${border}`)
-            .then((res)=> res.json())
-            .then(([borderCountry])=> borderCountry.name.common)
-           })).then((borders)=>{
-            setCountryData((prevState)=> ({...prevState, borders}))
-              console.log("hii");
-           })
-    
+              .then((res) => res.json())
+              .then(([borderCountry]) => borderCountry.name.common);
+          })
+        ).then((borders) => {
+          setCountryData((prevState) => ({ ...prevState, borders }));
+          console.log("hii");
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -58,7 +58,7 @@ export default function CountryDetail() {
   ) : (
     <main>
       <div className="country-detailes-container">
-        <span className="back-button" onClick={()=> history.back()}>
+        <span className="back-button" onClick={() => history.back()}>
           <i className="fa-solid fa-arrow-left" />
           &nbsp; Back
         </span>
@@ -103,12 +103,16 @@ export default function CountryDetail() {
                 <span className="language" />
               </p>
             </div>
-           { countryData.length !== 0 && <div className="border-countries">
-              <b>Border Countries: </b>&nbsp;
-              {
-                countryData.borders.map((border)=> <Link key={border} to={`/${border}`}>{border}</Link>)
-              }
-            </div>}
+            {countryData.length !== 0 && (
+              <div className="border-countries">
+                <b>Border Countries: </b>&nbsp;
+                {countryData.borders.map((border) => (
+                  <Link key={border} to={`/${border}`}>
+                    {border}
+                  </Link>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>

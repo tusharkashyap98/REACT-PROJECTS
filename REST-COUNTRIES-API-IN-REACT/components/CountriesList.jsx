@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import React from "react";
 // import countriesData from "../countriesData";
 import CountryCard from "./CountryCard";
+import CountriesListShimmer from "./CountriesListShimmer";
 
 export default function CountriesList({ query }) {
   const [countriesData, setCountriesData] = useState([]);
@@ -13,9 +14,11 @@ export default function CountriesList({ query }) {
       .then((data) => {
         setCountriesData(data);
       });
-
   }, []);
 
+  if (!countriesData.length) {
+    return <CountriesListShimmer />;
+  }
 
   return (
     <>

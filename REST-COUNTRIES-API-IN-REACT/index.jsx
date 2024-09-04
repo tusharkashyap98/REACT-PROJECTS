@@ -6,16 +6,15 @@ import Home from "./components/Home";
 import Error from "./components/Error";
 import CountryDetail from "./components/CountryDetail";
 
-
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    errorElement: <Error/>,
+    errorElement: <Error />,
     children: [
       {
         path: "/",
-        element: <Home/>,
+        element: <Home />,
       },
       {
         path: "/contact",
@@ -23,7 +22,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/:country",
-        element: <CountryDetail/>,
+        element: <CountryDetail />,
       },
     ],
   },
