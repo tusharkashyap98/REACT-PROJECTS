@@ -3,7 +3,6 @@ const { createContext, useState } = require("react");
 export const ThemeContext = createContext();
 
 export function ThemeProvider({ children }) {
-  console.log(children);
   const [isDark, setIsDark] = useState(
     JSON.parse(localStorage.getItem("isDarkMode"))
   );
