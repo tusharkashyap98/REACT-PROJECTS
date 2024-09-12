@@ -1,5 +1,5 @@
 {
-  "name": "06-rest-countries-api-in-react",
+  "name": "rest-countries-api",
   "version": "1.0.0",
   "scripts": {
     "start": "parcel index.html",
